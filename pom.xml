@@ -7,9 +7,15 @@
 	<groupId>microservice-EndUser</groupId>
 	<artifactId>microservice-EndUser</artifactId>
 	<packaging>war</packaging>
+	<version>1.0</version>
 	<name>microservice-EndUser</name>
-	<version>0.0.1-SNAPSHOT</version>
 
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.7</maven.compiler.source>
+		<maven.compiler.target>1.7</maven.compiler.target>
+	</properties>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.neo4j.driver</groupId>
@@ -45,18 +51,7 @@
 		</dependency>
 	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.6</version>
-				<configuration>
-					<failOnMissingWebXml>false</failOnMissingWebXml>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+
 
 	<profiles>
 		<profile>
@@ -71,7 +66,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-war-plugin</artifactId>
-						<version>2.6</version>
+						<version>2.3</version>
 						<configuration>
 							<failOnMissingWebXml>false</failOnMissingWebXml>
 							<outputDirectory>target</outputDirectory>
