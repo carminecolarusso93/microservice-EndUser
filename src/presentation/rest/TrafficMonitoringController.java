@@ -31,7 +31,7 @@ public class TrafficMonitoringController implements TrafficMonitoringControllerA
 			}
 			else if (type.equals("Intersection")) {
 				ArrayList<Long> osmids = trafficMonitoringService.shortestPath(source, destination);
-				ArrayList<Intersection> inters = new ArrayList<>();
+				ArrayList<Intersection> inters = new ArrayList<Intersection>();
 				for(Long l : osmids) {
 					inters.add(trafficMonitoringService.getIntersection(l));
 				}
