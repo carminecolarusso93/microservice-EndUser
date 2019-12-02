@@ -44,26 +44,8 @@
 		</dependency>
 
 	</dependencies>
-	<build>
-		<sourceDirectory>src</sourceDirectory>
-		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.0</version>
-				<configuration>
-					<release>11</release>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>3.2.1</version>
-				<configuration>
-					<warSourceDirectory>WebContent</warSourceDirectory>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-	
+
+
 	<profiles>
 		<profile>
 			<!-- When built in OpenShift the 'openshift' profile will be used when invoking mvn. -->
@@ -72,7 +54,7 @@
 			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
 			<id>openshift</id>
 			<build>
-				<finalName>SCUChallenge-administrationPresentation</finalName>
+				<finalName>microservice-EndUser</finalName>
 				<plugins>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
@@ -81,7 +63,7 @@
 						<configuration>
 							<outputDirectory>target</outputDirectory>
 							<failOnMissingWebXml>false</failOnMissingWebXml>
-							<warName>SCUChallenge-administrationPresentation</warName>
+							<warName>microservice-EndUser</warName>
 						</configuration>
 					</plugin>
 				</plugins>
