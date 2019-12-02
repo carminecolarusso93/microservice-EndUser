@@ -11,7 +11,7 @@ public class ServerUtilities {
 	protected File configurationFile;
 
 	public static File getConfigurationFile() throws FileNotFoundException {
-		File f = new File(System.getProperty(JBOSS_SERVER_DATA_DIR), CONF_FILE_NAME);
+		File f = new File(System.getProperty(JBOSS_SERVER_DATA_DIR)+"/"+CONF_FILE_NAME);
 		File f2 = new File("/opt/app-root/src/" + CONF_FILE_NAME);
 		if (f.exists()) {
 			return f;
