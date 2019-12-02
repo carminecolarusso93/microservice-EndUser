@@ -19,10 +19,11 @@ public class TestServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
 
-        File f = new File(System.getProperty(ServerUtilities.JBOSS_SERVER_DATA_DIR), "CONF_FILE_NAME");
-        System.out.println(f.getAbsolutePath());
-        response.getWriter().append(f.getAbsolutePath());
-
+        File f = ServerUtilities.getConfigurationFile();
+    
+    	
+     //   System.out.println(f.getAbsolutePath());
+   	 response.getWriter().append(f.getAbsolutePath()); 
     }
 
     /**

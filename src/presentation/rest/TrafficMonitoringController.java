@@ -14,7 +14,7 @@ import data.dataModel.Street;
 
 
 
-@Path("/network-Lyon")
+@Path("/otm")
 public class TrafficMonitoringController implements TrafficMonitoringControllerApi {
 
 	@EJB // (lookup =
