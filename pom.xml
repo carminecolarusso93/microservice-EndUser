@@ -9,10 +9,7 @@
 	<packaging>war</packaging>
 	<name>microservice-EndUser</name>
 	<version>0.0.1-SNAPSHOT</version>
-
-
-
-
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.neo4j.driver</groupId>
@@ -58,14 +55,6 @@
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>8</source>
-					<target>8</target>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
 
@@ -77,15 +66,15 @@
 			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
 			<id>openshift</id>
 			<build>
-				<finalName>microservice-EndUser</finalName>
+				<finalName>TestEtcdWatcher</finalName>
 				<plugins>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-war-plugin</artifactId>
 						<version>2.6</version>
 						<configuration>
-							<outputDirectory>target</outputDirectory>
 							<failOnMissingWebXml>false</failOnMissingWebXml>
+							<outputDirectory>target</outputDirectory>
 							<warName>ROOT</warName>
 						</configuration>
 					</plugin>
