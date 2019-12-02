@@ -8,15 +8,12 @@ import java.util.ArrayList;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.Stateless;
-import javax.interceptor.Interceptors;
 
-import application.interceptors.ProfileInterceptor;
-import data.dataModel.Coordinate;
-import data.dataModel.Intersection;
-import data.dataModel.Street;
-import data.databaseDriver.DriverDatabase;
-import data.databaseDriver.DriverDatabaseNeo4j;
+import data.databaseDriver.*;
+import data.dataModel.*;
 import util.ServerUtilities;
+
+
 
 /**
  * Session Bean implementation class BigServiceController
@@ -24,7 +21,7 @@ import util.ServerUtilities;
  * Encapsulates the driver to access the traffic management database with common user role.
  */
 
-//@Interceptors({ProfileInterceptor.class})
+
 @Stateless
 public class TrafficMonitoringService implements TrafficMonitoringServiceLocal, TrafficMonitoringServiceRemote{
 
