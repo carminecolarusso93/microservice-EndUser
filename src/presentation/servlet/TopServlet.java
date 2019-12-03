@@ -1,6 +1,5 @@
 package presentation.servlet;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -13,10 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
-import application.TestEJBLocal;
+import application.ejb.TestEJBLocal;
 import data.dataModel.Intersection;
 import com.google.gson.Gson;
-import util.*;
 
 
 /**

@@ -7,7 +7,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import application.ejb.TrafficMonitoringServiceLocal;
+import application.TrafficMonitoring.TrafficMonitoringServiceLocal;
 import data.dataModel.Coordinate;
 import data.dataModel.Intersection;
 import data.dataModel.Street;

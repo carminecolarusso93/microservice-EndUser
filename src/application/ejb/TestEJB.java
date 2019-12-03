@@ -1,4 +1,4 @@
-package application;
+package application.ejb;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;

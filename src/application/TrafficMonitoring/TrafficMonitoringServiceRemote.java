@@ -1,4 +1,4 @@
-package application.ejb;
+package application.TrafficMonitoring;
 
 import java.util.ArrayList;
 

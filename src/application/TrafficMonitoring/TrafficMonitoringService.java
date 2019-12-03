@@ -1,4 +1,4 @@
-package application.ejb;
+package application.TrafficMonitoring;
 
 
 
@@ -23,7 +23,7 @@ import util.ServerUtilities;
 
 
 @Stateless
-public class TrafficMonitoringService implements TrafficMonitoringServiceLocal, TrafficMonitoringServiceRemote{
+public class TrafficMonitoringService implements TrafficMonitoringServiceLocal, TrafficMonitoringServiceRemote {
 
 	DriverDatabase database;
 	protected String databeseURI = null;

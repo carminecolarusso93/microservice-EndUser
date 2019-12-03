@@ -1,4 +1,4 @@
-package application;
+package application.ejb;
 
 import java.util.ArrayList;
 

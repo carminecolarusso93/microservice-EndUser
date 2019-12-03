@@ -6,7 +6,7 @@
 	<artifactId>microservice-user</artifactId>
 	<version>1.0</version>
 	<packaging>war</packaging>
-	<name>microservice-user2</name>
+	<name>microservice-user</name>
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>
