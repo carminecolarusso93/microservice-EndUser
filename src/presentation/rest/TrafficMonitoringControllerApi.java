@@ -15,6 +15,7 @@ import javax.ws.rs.core.UriInfo;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+
 public interface TrafficMonitoringControllerApi {
 
 	// recupero dei percorsi minimi tra i nodi a e b

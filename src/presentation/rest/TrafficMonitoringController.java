@@ -3,27 +3,24 @@ package presentation.rest;
 import java.util.ArrayList;
 
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import data.dataModel.*;
 import application.TrafficMonitoring.TrafficMonitoringServiceLocal;
-import data.dataModel.Coordinate;
-import data.dataModel.Intersection;
-import data.dataModel.Street;
 
-
-
+@RequestScoped
 @Path("/otm")
 public class TrafficMonitoringController implements TrafficMonitoringControllerApi {
 
-	@EJB // (lookup =
-	// "java:global/SmartCityUniversityChallenge/SCUChallenge-application/BigService!service.BigServiceLocal")
+	@EJB
 	private TrafficMonitoringServiceLocal trafficMonitoringService;
 
 	@Override
 	public Response shortestPath(long source, long destination, String type) {
-
+		
 		if(source != 0 && destination != 0) {
 			if (type.equals("Coordinate")) {
 				ArrayList<Coordinate> coords = trafficMonitoringService.shortestPathCoordinate(source, destination);
@@ -31,7 +28,7 @@ public class TrafficMonitoringController implements TrafficMonitoringControllerA
 			}
 			else if (type.equals("Intersection")) {
 				ArrayList<Long> osmids = trafficMonitoringService.shortestPath(source, destination);
-				ArrayList<Intersection> inters = new ArrayList<Intersection>();
+				ArrayList<Intersection> inters = new ArrayList<>();
 				for(Long l : osmids) {
 					inters.add(trafficMonitoringService.getIntersection(l));
 				}
@@ -39,7 +36,7 @@ public class TrafficMonitoringController implements TrafficMonitoringControllerA
 			}
 		}
 		//ArrayList<Long> nodes = trafficMonitoringService.shortestPath(source, destination);
-
+		
 
 //		//ArrayList<Intersection> resp = new ArrayList<>();
 //		ArrayList<Coordinate> resp = new ArrayList<>();

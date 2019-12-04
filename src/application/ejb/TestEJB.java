@@ -9,8 +9,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import data.dataModel.Intersection;
-import data.databaseDriver.DriverDatabase;
-import data.databaseDriver.DriverDatabaseNeo4j;
+import data.databaseDriver.*;
 import util.ServerUtilities;
 
 /**

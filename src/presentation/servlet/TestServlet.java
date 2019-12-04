@@ -1,7 +1,5 @@
 package presentation.servlet;
 
-import data.dataModel.Intersection;
-import com.google.gson.Gson;
 import util.ServerUtilities;
 
 import javax.servlet.ServletException;
@@ -11,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+
 
 @WebServlet("/TestServlet")
 public class TestServlet extends HttpServlet {

@@ -4,9 +4,8 @@ import java.util.ArrayList;
 
 import javax.ejb.Local;
 
-import data.dataModel.Coordinate;
-import data.dataModel.Intersection;
-import data.dataModel.Street;
+import data.dataModel.*;
+
 
 /**
  * Local Interface for the EJB that implements the common user Service of the road network.

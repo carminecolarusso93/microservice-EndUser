@@ -1,7 +1,5 @@
 package application.TrafficMonitoring;
 
-
-
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
@@ -9,11 +7,9 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.Stateless;
 
-import data.databaseDriver.*;
 import data.dataModel.*;
+import data.databaseDriver.*;
 import util.ServerUtilities;
-
-
 
 /**
  * Session Bean implementation class BigServiceController
@@ -21,18 +17,21 @@ import util.ServerUtilities;
  * Encapsulates the driver to access the traffic management database with common user role.
  */
 
-
 @Stateless
-public class TrafficMonitoringService implements TrafficMonitoringServiceLocal, TrafficMonitoringServiceRemote {
+public class TrafficMonitoringService implements TrafficMonitoringServiceLocal, TrafficMonitoringServiceRemote{
 
 	DriverDatabase database;
 	protected String databeseURI = null;
 	protected String databaseUser = null;
-	protected String databasePass = null; 
-    /**
-     * Default constructor. 
-     */
-    public TrafficMonitoringService() {
+	protected String databasePass = null;
+
+	/**
+	 * Default constructor.
+	 * <p>
+	 * Instantiate a driver to access the Neo4j Graph Database for common user with default bolt uri and credentials.
+	 * @throws FileNotFoundException 
+	 */
+	public TrafficMonitoringService() {
 		try {
 			ServerUtilities serverUtilities = new ServerUtilities();
 			this.databeseURI = serverUtilities.getDatabaseUri();
@@ -42,8 +41,7 @@ public class TrafficMonitoringService implements TrafficMonitoringServiceLocal, 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-    }
-
+	}
 	
 	/**
 	 * Called after the EJB construction.
@@ -63,17 +61,12 @@ public class TrafficMonitoringService implements TrafficMonitoringServiceLocal, 
 		database.closeConnection();
 	}
     
-	@Override
-	public String test() {
-		try {
-			ServerUtilities serverUtilities = new ServerUtilities();
-			return serverUtilities.getDatabaseUri();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-    
+    @Override
+   // @RolesAllowed({"user", "admin"})
+    public String test() {
+    	return "ciao";
+    }
+
 //	@Override
 //	public ArrayList<Long> shortestPath(long osmidStart, long osmidDest) {
 //		return database.shortestPath(osmidStart, osmidDest);
