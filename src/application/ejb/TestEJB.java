@@ -29,9 +29,9 @@ public class TestEJB implements TestEJBRemote, TestEJBLocal {
     public TestEJB() {
 		try {
 			ServerUtilities serverUtilities = new ServerUtilities();
-			this.databeseURI = serverUtilities.getDatabaseUri();
-			this.databaseUser = serverUtilities.getDatabaseUser();
-			this.databasePass = serverUtilities.getDatabasePass();
+			this.databeseURI = serverUtilities.getDatabaseReplicaUri();
+			this.databaseUser = serverUtilities.getDatabaseReplicaUser();
+			this.databasePass = serverUtilities.getDatabaseReplicaPass();
 			driverDatabase = new DriverDatabaseNeo4j(databeseURI, databaseUser, databasePass);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -65,7 +65,7 @@ public class TestEJB implements TestEJBRemote, TestEJBLocal {
 	public String test() {
 		try {
 			ServerUtilities serverUtilities = new ServerUtilities();
-			return serverUtilities.getDatabaseUri();
+			return serverUtilities.getDatabaseReplicaUri();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
