@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.Stateless;
 
+
 import data.dataModel.*;
 import data.databaseDriver.*;
 import util.ServerUtilities;
@@ -67,10 +68,6 @@ public class TrafficMonitoringService implements TrafficMonitoringServiceLocal, 
     	return "ciao";
     }
 
-//	@Override
-//	public ArrayList<Long> shortestPath(long osmidStart, long osmidDest) {
-//		return database.shortestPath(osmidStart, osmidDest);
-//		}
     
 	@Override
 	public ArrayList<Coordinate> shortestPathCoordinate(long osmidStart, long osmidDest) {
@@ -111,4 +108,10 @@ public class TrafficMonitoringService implements TrafficMonitoringServiceLocal, 
 	public ArrayList<Long> shortestPath(long osmidStart, long osmidDest) {
 		return database.shortestPath(osmidStart, osmidDest);
 	}
+
+	@Override
+	public Intersection getNearestIntersection(Coordinate position){
+		return database.getNearestIntersection(position);
+	}
+
 }

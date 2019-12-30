@@ -93,5 +93,6 @@ public interface TrafficMonitoringServiceRemote {
 	 * @return The Java representation of the searched Street.
 	 */
 	public Street getStreet(int id);
-	
+
+	public Intersection getNearestIntersection(Coordinate position);
 }

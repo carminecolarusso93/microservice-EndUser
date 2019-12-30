@@ -1,10 +1,12 @@
 package application.TrafficMonitoring;
 
+import data.dataModel.*;
+
 import java.util.ArrayList;
 
 import javax.ejb.Local;
 
-import data.dataModel.*;
+
 
 
 /**
@@ -94,5 +96,7 @@ public interface TrafficMonitoringServiceLocal  {
 	public Street getStreet(int id);
 	
 	public String test();
+
+	public Intersection getNearestIntersection(Coordinate position);
 
 }

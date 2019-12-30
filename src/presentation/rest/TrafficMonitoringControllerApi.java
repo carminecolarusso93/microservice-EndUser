@@ -46,6 +46,10 @@ public interface TrafficMonitoringControllerApi {
 	public Response getIntersection(@QueryParam("osmid") long osmid);
 
 	@GET
+	@Path("/intersections/nearest")
+	public Response getNearestIntersection(@QueryParam("latitude") float latitude, @QueryParam("longitude") float longitude);
+
+	@GET
 	@Path("/streets")
 	public Response getStreetProperties(@Context UriInfo info);
 

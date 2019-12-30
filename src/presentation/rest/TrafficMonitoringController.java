@@ -86,6 +86,13 @@ public class TrafficMonitoringController implements TrafficMonitoringControllerA
 	}
 
 	@Override
+	public Response getNearestIntersection(float latitude, float longitude) {
+		Intersection i = trafficMonitoringService.getNearestIntersection(new Coordinate(longitude, latitude));
+		return ResponseBuilder.createOkResponse(i);
+
+	}
+
+	@Override
 	public Response getStreetProperties(UriInfo info) {
 		String id = info.getQueryParameters().getFirst("id");
 		String osmidStart = info.getQueryParameters().getFirst("osmidStart");

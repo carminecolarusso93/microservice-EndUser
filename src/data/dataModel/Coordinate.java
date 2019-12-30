@@ -2,46 +2,46 @@ package data.dataModel;
 
 public class Coordinate {
 
-	/**
-	 * Longitude of Intersection in Decimal Degrees (DD).
-	 */
-	private double longitude;
-	
-	/**
-	 * Latitude of Intersection in Decimal Degrees (DD).
-	 */
-	private double latitude;
+    /**
+     * Longitude of Intersection in Decimal Degrees (DD).
+     */
+    private double longitude;
 
-	/**
-	 * 
-	 * @param longitude Longitude of Intersection in Decimal Degrees (DD).
-	 * @param latitude  Latitude of Intersection in Decimal Degrees (DD).
-	 */
-	public Coordinate(double longitude, double latitude) {
-		super();
-		this.longitude = longitude;
-		this.latitude = latitude;
-	}
+    /**
+     * Latitude of Intersection in Decimal Degrees (DD).
+     */
+    private double latitude;
 
-	public double getLongitude() {
-		return longitude;
-	}
+    /**
+     *
+     * @param longitude Longitude of Intersection in Decimal Degrees (DD).
+     * @param latitude  Latitude of Intersection in Decimal Degrees (DD).
+     */
+    public Coordinate(double longitude, double latitude) {
+        super();
+        this.longitude = longitude;
+        this.latitude = latitude;
+    }
 
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
-	}
+    public double getLongitude() {
+        return longitude;
+    }
 
-	public double getLatitude() {
-		return latitude;
-	}
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
 
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
-	}
+    public double getLatitude() {
+        return latitude;
+    }
 
-	@Override
-	public String toString() {
-		return "Coordinate [longitude=" + longitude + ", latitude=" + latitude + "]";
-	}
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    @Override
+    public String toString() {
+        return "Coordinate [longitude=" + longitude + ", latitude=" + latitude + "]";
+    }
 
 }
