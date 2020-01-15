@@ -43,7 +43,7 @@ public class ServerUtilities {
 	public String getDatabaseCoreUri() {
 		String ip = ConfigurationParser.readElementFromFileXml(configurationFile, "neo4j-core", "bolt-ip");
 		String port = ConfigurationParser.readElementFromFileXml(configurationFile, "neo4j-core", "bolt-port");
-		return "bolt://" + ip + ":" + port;
+		return "bolt+routing://" + ip + ":" + port;
 	}
 
 	public String getDatabaseCoreUser() {
@@ -52,5 +52,12 @@ public class ServerUtilities {
 
 	public String getDatabaseCorePass() {
 		return ConfigurationParser.readElementFromFileXml(configurationFile, "neo4j-core", "password");
+	}
+
+	@Override
+	public String toString() {
+		return "ServerUtilities{" +
+				"configurationFile=" + configurationFile +
+				'}';
 	}
 }
