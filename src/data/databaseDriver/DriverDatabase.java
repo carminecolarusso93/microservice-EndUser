@@ -1,12 +1,13 @@
 package data.databaseDriver;
 
+import data.dataModel.Coordinate;
+import data.dataModel.Intersection;
+import data.dataModel.Street;
+import org.neo4j.driver.v1.StatementResult;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import org.neo4j.driver.v1.StatementResult;
-
-import data.dataModel.*;
 
 /**
  * Interface that gives all methods that define the operations to do on neo4j
@@ -94,6 +95,12 @@ public interface DriverDatabase {
 
 	// public Intersection setIntersection(int vertexKey, String name, float lat,
 	// float lon, float betweenness);
+	/**
+	 * Deletes a STREET identified by given linkKey.
+	 *
+	 * @param id Id of the street to delete.
+	 */
+	public void deleteStreet(int id);
 
 	/**
 	 * Update the weight value of a specific street.
@@ -179,13 +186,6 @@ public interface DriverDatabase {
 	 * @param osmid Id of the Intersection to delete.
 	 */
 	public void deleteIntersection(long osmid);
-
-	/**
-	 * Deletes a STREET identified by given linkKey.
-	 * 
-	 * @param id Id of the street to delete.
-	 */
-	public void deleteStreet(int id);
 
 	/**
 	 * This method close the open connection and delete driver.
@@ -345,7 +345,7 @@ public interface DriverDatabase {
 	
 	public void setStreetInterrupted(int id, boolean interrupted);
 	
-	public boolean setStreetInterrupted(long osmidStart, long osmidDest, boolean interrupted);
+//	public boolean setStreetInterrupted(long osmidStart, long osmidDest, boolean interrupted);
 	
 	public Intersection getNearestIntersection(Coordinate position);
 	

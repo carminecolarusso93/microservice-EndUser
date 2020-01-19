@@ -1,10 +1,13 @@
 package data.databaseDriver;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 import org.jboss.logging.Logger;
 import org.neo4j.driver.v1.AuthTokens;
@@ -42,7 +45,7 @@ public class DriverDatabaseNeo4j implements DriverDatabase {
 
 	@Override
 	public void openConnection() {
-		logger.info("Opening Connection to DataBase");
+		logger.info("Opening Connection to DataBase URI["+uri+"]");
 		this.driver = GraphDatabase.driver(uri, AuthTokens.basic(user, password));
 	}
 
@@ -75,7 +78,7 @@ public class DriverDatabaseNeo4j implements DriverDatabase {
 	}
 
 	public StatementResult transaction(String query) {
-		// logger.info("transaction: " + query);
+		logger.info("transaction: " + query);
 		try {
 			if (driver == null)
 				throw new DatabaseNotConnectException("Database Non Connesso");
@@ -96,7 +99,7 @@ public class DriverDatabaseNeo4j implements DriverDatabase {
 	// ADD
 	@Override
 	public Intersection addIntersection(Coordinate c, String highway, long osmid, String ref, boolean parking,
-			boolean hospital, boolean busStop, boolean museum) {
+                                        boolean hospital, boolean busStop, boolean museum) {
 		String query = "MERGE (a:Intersection {longitude: " + c.getLongitude() + ", latitude: " + c.getLatitude()
 				+ ", highway: \"" + highway + "\", osmid: " + osmid + ", ref: \"" + ref
 				+ "\",  betweenness: 0, parking: " + parking + ", hospital: " + hospital + ", busStop: " + busStop
@@ -112,7 +115,7 @@ public class DriverDatabaseNeo4j implements DriverDatabase {
 	// ADD
 
 	public Intersection addIntersectionInit(Coordinate c, String highway, long osmid, String ref, double betweenness,
-			boolean parking, boolean hospital, boolean busStop, boolean museum) {
+                                            boolean parking, boolean hospital, boolean busStop, boolean museum) {
 
 		String query = "CREATE (a:Intersection {longitude: " + c.getLongitude() + ", latitude: " + c.getLatitude()
 				+ ", highway: \"" + highway + "\", osmid: " + osmid + ", ref: \"" + ref + "\", betweenness: "
@@ -127,10 +130,10 @@ public class DriverDatabaseNeo4j implements DriverDatabase {
 	}
 
 	public Street addStreetInit(ArrayList<Coordinate> coordinates, int id, String access, String area, String bridge,
-			long osmidStart, long osmidDest, String highway, String junction, int key, ArrayList<Integer> arrayLanes,
-			double length, String maxSpeed, String name, boolean oneWay, ArrayList<Long> osmidEdges, String ref,
-			boolean transportService, String tunnel, String width, long origId, double weight, double flow,
-			double averageTravelTime, boolean interrupted) {
+                                long osmidStart, long osmidDest, String highway, String junction, int key, ArrayList<Integer> arrayLanes,
+                                double length, String maxSpeed, String name, boolean oneWay, ArrayList<Long> osmidEdges, String ref,
+                                boolean transportService, String tunnel, String width, long origId, double weight, double flow,
+                                double averageTravelTime, boolean interrupted) {
 
 		// System.out.println(arrayLanes.size());
 		StringBuilder sbLanes = new StringBuilder();
@@ -191,10 +194,10 @@ public class DriverDatabaseNeo4j implements DriverDatabase {
 
 	@Override
 	public Street addStreet(ArrayList<Coordinate> coordinates, int id, String access, String area, String bridge,
-			long osmidStart, long osmidDest, String highway, String junction, int key, ArrayList<Integer> arrayLanes,
-			double length, String maxSpeed, String name, boolean oneWay, ArrayList<Long> osmidEdges, String ref,
-			boolean transportService, String tunnel, String width, long origId, double weight, double flow,
-			double averageTravelTime, boolean interrupted) {
+                            long osmidStart, long osmidDest, String highway, String junction, int key, ArrayList<Integer> arrayLanes,
+                            double length, String maxSpeed, String name, boolean oneWay, ArrayList<Long> osmidEdges, String ref,
+                            boolean transportService, String tunnel, String width, long origId, double weight, double flow,
+                            double averageTravelTime, boolean interrupted) {
 
 		// System.out.println(arrayLanes.size());
 		StringBuilder sbLanes = new StringBuilder();
@@ -663,7 +666,7 @@ public class DriverDatabaseNeo4j implements DriverDatabase {
 
 //	public LocalDateTime setLastModified() {
 //		StatementResult result = interrogation("MATCH (a:Control) SET a.timestamp = localdatetime() Return a.timestamp");
-//		Record r = result.single();	
+//		Record r = result.single();
 //		LocalDateTime ldt = r.get("a.timestamp").asLocalDateTime();
 //		return ldt;
 //	}
@@ -743,17 +746,17 @@ public class DriverDatabaseNeo4j implements DriverDatabase {
 
 	@Override
 	public void setStreetInterrupted(int id, boolean interrupted) {
-		String query = "MATCH ()-[s:STREET{linkKey:" + id + "}]->() SET s.interruption= " + interrupted + " return *";
+		String query = "MATCH ()-[s:STREET{id:" + id + "}]->() SET s.interrupted= " + interrupted + " return *";
 		transaction(query);
 		// TODO gestire valore di ritorno con try/catch e gestione errore
 
 	}
-
-	@Override
-	public boolean setStreetInterrupted(long osmidStart, long osmidDest, boolean interrupted) {
-
-		return false;
-	}
+//TODO
+//	@Override
+//	public boolean setStreetInterrupted(long osmidStart, long osmidDest, boolean interrupted) {
+//
+//		return false;
+//	}
 
 //	public LocalDateTime setLastModified() {
 //		StatementResult result = interrogation(
@@ -940,8 +943,8 @@ public class DriverDatabaseNeo4j implements DriverDatabase {
 				+ "YIELD nodeId, cost\r\n" + "RETURN algo.asNode(nodeId).osmid as vertexKeys, cost order by cost desc limit 1";
 
 		StatementResult result = interrogation(query);
-		
+
 		Record r = result.single();
-		return r.get("cost").asDouble();			
+		return r.get("cost").asDouble();
 	}
 }
