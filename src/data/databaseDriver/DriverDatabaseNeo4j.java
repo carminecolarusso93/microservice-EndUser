@@ -99,7 +99,7 @@ public class DriverDatabaseNeo4j implements DriverDatabase {
 	// ADD
 	@Override
 	public Intersection addIntersection(Coordinate c, String highway, long osmid, String ref, boolean parking,
-                                        boolean hospital, boolean busStop, boolean museum) {
+										boolean hospital, boolean busStop, boolean museum) {
 		String query = "MERGE (a:Intersection {longitude: " + c.getLongitude() + ", latitude: " + c.getLatitude()
 				+ ", highway: \"" + highway + "\", osmid: " + osmid + ", ref: \"" + ref
 				+ "\",  betweenness: 0, parking: " + parking + ", hospital: " + hospital + ", busStop: " + busStop
@@ -115,7 +115,7 @@ public class DriverDatabaseNeo4j implements DriverDatabase {
 	// ADD
 
 	public Intersection addIntersectionInit(Coordinate c, String highway, long osmid, String ref, double betweenness,
-                                            boolean parking, boolean hospital, boolean busStop, boolean museum) {
+											boolean parking, boolean hospital, boolean busStop, boolean museum) {
 
 		String query = "CREATE (a:Intersection {longitude: " + c.getLongitude() + ", latitude: " + c.getLatitude()
 				+ ", highway: \"" + highway + "\", osmid: " + osmid + ", ref: \"" + ref + "\", betweenness: "
@@ -130,10 +130,10 @@ public class DriverDatabaseNeo4j implements DriverDatabase {
 	}
 
 	public Street addStreetInit(ArrayList<Coordinate> coordinates, int id, String access, String area, String bridge,
-                                long osmidStart, long osmidDest, String highway, String junction, int key, ArrayList<Integer> arrayLanes,
-                                double length, String maxSpeed, String name, boolean oneWay, ArrayList<Long> osmidEdges, String ref,
-                                boolean transportService, String tunnel, String width, long origId, double weight, double flow,
-                                double averageTravelTime, boolean interrupted) {
+								long osmidStart, long osmidDest, String highway, String junction, int key, ArrayList<Integer> arrayLanes,
+								double length, String maxSpeed, String name, boolean oneWay, ArrayList<Long> osmidEdges, String ref,
+								boolean transportService, String tunnel, String width, long origId, double weight, double flow,
+								double averageTravelTime, boolean interrupted) {
 
 		// System.out.println(arrayLanes.size());
 		StringBuilder sbLanes = new StringBuilder();
@@ -194,10 +194,10 @@ public class DriverDatabaseNeo4j implements DriverDatabase {
 
 	@Override
 	public Street addStreet(ArrayList<Coordinate> coordinates, int id, String access, String area, String bridge,
-                            long osmidStart, long osmidDest, String highway, String junction, int key, ArrayList<Integer> arrayLanes,
-                            double length, String maxSpeed, String name, boolean oneWay, ArrayList<Long> osmidEdges, String ref,
-                            boolean transportService, String tunnel, String width, long origId, double weight, double flow,
-                            double averageTravelTime, boolean interrupted) {
+							long osmidStart, long osmidDest, String highway, String junction, int key, ArrayList<Integer> arrayLanes,
+							double length, String maxSpeed, String name, boolean oneWay, ArrayList<Long> osmidEdges, String ref,
+							boolean transportService, String tunnel, String width, long origId, double weight, double flow,
+							double averageTravelTime, boolean interrupted) {
 
 		// System.out.println(arrayLanes.size());
 		StringBuilder sbLanes = new StringBuilder();
@@ -562,6 +562,51 @@ public class DriverDatabaseNeo4j implements DriverDatabase {
 			coords.addAll(coordstmp);
 		}
 		return coords;
+	}
+
+	public ArrayList<Coordinate> shortestPathCoordinateIgnoreInterrupted(long osmidStart, long osmidDest){
+		String query = "MATCH (start:Intersection{osmid:" + osmidStart + "}), (end:Intersection{osmid:" + osmidDest
+				+ "})\r\n" + "CALL algo.shortestPath.stream(start, end, 'weight',{direction:'OUTGOING'})\r\n"
+				+ "YIELD nodeId, cost\r\n" + "RETURN algo.asNode(nodeId).osmid as vertexKeys";
+		StatementResult result = interrogation(query);
+		ArrayList<Long> shortestPath = new ArrayList<>();
+		Record r;
+		long vertexKey;
+		while (result.hasNext()) {
+			r = result.next();
+			vertexKey = r.get("vertexKeys").asLong();
+
+			shortestPath.add(vertexKey);
+		}
+		ArrayList<Coordinate> coordstmp = new ArrayList<>();
+		ArrayList<Coordinate> coords = new ArrayList<>();
+
+		for (int i = 0; i < shortestPath.size() - 1; i++) {
+			coordstmp = getStreetGeometry(shortestPath.get(i), shortestPath.get(i + 1));
+			coords.addAll(coordstmp);
+		}
+		return coords;
+
+	}
+
+
+	public ArrayList<Long> shortestPathIgnoreInterrupted(long osmidStart, long osmidDest){
+		String query = "MATCH (start:Intersection{osmid:" + osmidStart + "}), (end:Intersection{osmid:" + osmidDest
+				+ "})\r\n" + "CALL algo.shortestPath.stream(start, end, 'weight',{direction:'OUTGOING'})\r\n"
+				+ "YIELD nodeId, cost\r\n" + "RETURN algo.asNode(nodeId).osmid as vertexKeys";
+
+		StatementResult result = interrogation(query);
+		ArrayList<Long> shortestPath = new ArrayList<>();
+		Record r;
+		long vertexKey;
+		while (result.hasNext()) {
+			r = result.next();
+			vertexKey = r.get("vertexKeys").asLong();
+
+			shortestPath.add(vertexKey);
+			// System.out.println("vert: "+vertexKey);
+		}
+		return shortestPath;
 	}
 
 	@Override

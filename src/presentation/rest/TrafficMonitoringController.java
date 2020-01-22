@@ -1,15 +1,16 @@
 package presentation.rest;
 
-import java.util.ArrayList;
+import application.trafficMonitoringService.TrafficMonitoringServiceLocal;
+import data.dataModel.Coordinate;
+import data.dataModel.Intersection;
+import data.dataModel.Street;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-
-import data.dataModel.*;
-import application.TrafficMonitoring.TrafficMonitoringServiceLocal;
+import java.util.ArrayList;
 
 @RequestScoped
 @Path("/otm")
@@ -19,15 +20,23 @@ public class TrafficMonitoringController implements TrafficMonitoringControllerA
 	private TrafficMonitoringServiceLocal trafficMonitoringService;
 
 	@Override
-	public Response shortestPath(long source, long destination, String type) {
-		
+	public Response shortestPath(long source, long destination, String type, boolean ignoreInterrupted) {
+
 		if(source != 0 && destination != 0) {
 			if (type.equals("Coordinate")) {
-				ArrayList<Coordinate> coords = trafficMonitoringService.shortestPathCoordinate(source, destination);
+				ArrayList<Coordinate> coords = null;
+				if(ignoreInterrupted)
+					coords = trafficMonitoringService.shortestPathCoordinateIgnoreInterrupted(source, destination);
+				else
+					coords = trafficMonitoringService.shortestPathCoordinate(source, destination);
 				return ResponseBuilder.createOkResponse(coords);
 			}
 			else if (type.equals("Intersection")) {
-				ArrayList<Long> osmids = trafficMonitoringService.shortestPath(source, destination);
+				ArrayList<Long> osmids = null;
+				if(ignoreInterrupted)
+					osmids = trafficMonitoringService.shortestPathIgnoreInterrupted(source, destination);
+				else
+					osmids = trafficMonitoringService.shortestPath(source, destination);
 				ArrayList<Intersection> inters = new ArrayList<>();
 				for(Long l : osmids) {
 					inters.add(trafficMonitoringService.getIntersection(l));
@@ -36,7 +45,7 @@ public class TrafficMonitoringController implements TrafficMonitoringControllerA
 			}
 		}
 		//ArrayList<Long> nodes = trafficMonitoringService.shortestPath(source, destination);
-		
+
 
 //		//ArrayList<Intersection> resp = new ArrayList<>();
 //		ArrayList<Coordinate> resp = new ArrayList<>();
@@ -44,11 +53,11 @@ public class TrafficMonitoringController implements TrafficMonitoringControllerA
 ////		for(Long osmid :nodes) {
 ////			resp.add(trafficMonitoringService.getIntersection(osmid));
 ////		}
-//		
+//
 //		for(Coordinate c: coords) {
 //			resp.add(c);
 //		}
-//		
+//
 		return Response.serverError().build();
 	}
 
@@ -127,7 +136,6 @@ public class TrafficMonitoringController implements TrafficMonitoringControllerA
 			e.printStackTrace();
 			return Response.serverError().build();
 		}
-
 	}
 
 }

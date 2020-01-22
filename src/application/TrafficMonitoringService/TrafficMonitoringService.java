@@ -1,4 +1,4 @@
-package application.TrafficMonitoring;
+package application.TrafficMonitoringService;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.Stateless;
-
 
 import data.dataModel.*;
 import data.databaseDriver.*;
@@ -19,7 +18,7 @@ import util.ServerUtilities;
  */
 
 @Stateless
-public class TrafficMonitoringService implements TrafficMonitoringServiceLocal, TrafficMonitoringServiceRemote{
+public class TrafficMonitoringService implements application.trafficMonitoringService.TrafficMonitoringServiceLocal, application.trafficMonitoringService.TrafficMonitoringServiceRemote {
 
 	DriverDatabase database;
 	protected String databeseURI = null;
@@ -30,7 +29,7 @@ public class TrafficMonitoringService implements TrafficMonitoringServiceLocal, 
 	 * Default constructor.
 	 * <p>
 	 * Instantiate a driver to access the Neo4j Graph Database for common user with default bolt uri and credentials.
-	 * @throws FileNotFoundException 
+	 * @throws FileNotFoundException
 	 */
 	public TrafficMonitoringService() {
 		try {
@@ -43,7 +42,7 @@ public class TrafficMonitoringService implements TrafficMonitoringServiceLocal, 
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Called after the EJB construction.
 	 * Open the connection to the database.
@@ -52,7 +51,7 @@ public class TrafficMonitoringService implements TrafficMonitoringServiceLocal, 
 	public void connect() {
 		database.openConnection();
 	}
-	
+
 	/**
 	 * Called before the EJB destruction.
 	 * Close the connection to the database.
@@ -61,18 +60,12 @@ public class TrafficMonitoringService implements TrafficMonitoringServiceLocal, 
 	public void preDestroy() {
 		database.closeConnection();
 	}
-    
-    @Override
-   // @RolesAllowed({"user", "admin"})
-    public String test() {
-    	return "ciao";
-    }
 
-    
 	@Override
-	public ArrayList<Coordinate> shortestPathCoordinate(long osmidStart, long osmidDest) {
-		return database.shortestPathCoordinate(osmidStart, osmidDest);
-		}
+	// @RolesAllowed({"user", "admin"})
+	public String test() {
+		return "ciao";
+	}
 
 	@Override
 	public ArrayList<Intersection> getTopCriticalNodes(int top) {
@@ -88,7 +81,7 @@ public class TrafficMonitoringService implements TrafficMonitoringServiceLocal, 
 	public double nodeFlow(long osmid) {
 		return database.nodeFlow(osmid);
 	}
-	
+
 	@Override
 	public Intersection getIntersection(long osmid) {
 		return database.getIntersectionLight(osmid);
@@ -98,7 +91,7 @@ public class TrafficMonitoringService implements TrafficMonitoringServiceLocal, 
 	public Street getStreet(int id) {
 		return database.getStreet(id);
 	}
-	
+
 	@Override
 	public int getLinkKey(long osmidStart, long osmidDest) {
 		return database.getLinkKey(osmidStart, osmidDest);
@@ -110,8 +103,23 @@ public class TrafficMonitoringService implements TrafficMonitoringServiceLocal, 
 	}
 
 	@Override
+	public ArrayList<Coordinate> shortestPathCoordinate(long osmidStart, long osmidDest) {
+		return database.shortestPathCoordinate(osmidStart, osmidDest);
+	}
+
+	@Override
 	public Intersection getNearestIntersection(Coordinate position){
 		return database.getNearestIntersection(position);
+	}
+
+	@Override
+	public ArrayList<Coordinate> shortestPathCoordinateIgnoreInterrupted(long osmidStart, long osmidDest) {
+		return database.shortestPathCoordinateIgnoreInterrupted(osmidStart,osmidDest);
+	}
+
+	@Override
+	public ArrayList<Long> shortestPathIgnoreInterrupted(long osmidStart, long osmidDest) {
+		return database.shortestPathIgnoreInterrupted(osmidStart, osmidDest);
 	}
 
 }
