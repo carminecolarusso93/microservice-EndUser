@@ -1,4 +1,4 @@
-package application.TrafficMonitoringService;
+package application.trafficMonitoringService;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import util.ServerUtilities;
  */
 
 @Stateless
-public class TrafficMonitoringService implements application.trafficMonitoringService.TrafficMonitoringServiceLocal, application.trafficMonitoringService.TrafficMonitoringServiceRemote {
+public class TrafficMonitoringService implements TrafficMonitoringServiceLocal, TrafficMonitoringServiceRemote{
 
 	DriverDatabase database;
 	protected String databeseURI = null;
@@ -29,7 +29,7 @@ public class TrafficMonitoringService implements application.trafficMonitoringSe
 	 * Default constructor.
 	 * <p>
 	 * Instantiate a driver to access the Neo4j Graph Database for common user with default bolt uri and credentials.
-	 * @throws FileNotFoundException
+	 * @throws FileNotFoundException 
 	 */
 	public TrafficMonitoringService() {
 		try {
@@ -42,7 +42,7 @@ public class TrafficMonitoringService implements application.trafficMonitoringSe
 			e.printStackTrace();
 		}
 	}
-
+	
 	/**
 	 * Called after the EJB construction.
 	 * Open the connection to the database.
@@ -51,7 +51,7 @@ public class TrafficMonitoringService implements application.trafficMonitoringSe
 	public void connect() {
 		database.openConnection();
 	}
-
+	
 	/**
 	 * Called before the EJB destruction.
 	 * Close the connection to the database.
@@ -59,12 +59,6 @@ public class TrafficMonitoringService implements application.trafficMonitoringSe
 	@PreDestroy
 	public void preDestroy() {
 		database.closeConnection();
-	}
-
-	@Override
-	// @RolesAllowed({"user", "admin"})
-	public String test() {
-		return "ciao";
 	}
 
 	@Override
@@ -81,7 +75,7 @@ public class TrafficMonitoringService implements application.trafficMonitoringSe
 	public double nodeFlow(long osmid) {
 		return database.nodeFlow(osmid);
 	}
-
+	
 	@Override
 	public Intersection getIntersection(long osmid) {
 		return database.getIntersectionLight(osmid);
@@ -91,14 +85,14 @@ public class TrafficMonitoringService implements application.trafficMonitoringSe
 	public Street getStreet(int id) {
 		return database.getStreet(id);
 	}
-
+	
 	@Override
 	public int getLinkKey(long osmidStart, long osmidDest) {
 		return database.getLinkKey(osmidStart, osmidDest);
 	}
 
 	@Override
-	public ArrayList<Long> shortestPath(long osmidStart, long osmidDest) {
+	public ArrayList<Intersection> shortestPath(long osmidStart, long osmidDest) {
 		return database.shortestPath(osmidStart, osmidDest);
 	}
 
@@ -118,7 +112,7 @@ public class TrafficMonitoringService implements application.trafficMonitoringSe
 	}
 
 	@Override
-	public ArrayList<Long> shortestPathIgnoreInterrupted(long osmidStart, long osmidDest) {
+	public ArrayList<Intersection> shortestPathIgnoreInterrupted(long osmidStart, long osmidDest) {
 		return database.shortestPathIgnoreInterrupted(osmidStart, osmidDest);
 	}
 

@@ -24,7 +24,7 @@ public class Intersection {
 	 *                    Intersection
 	 */
 	public Intersection(Coordinate coordinate, String highway, long osmid, String ref, double betweenness,
-                        boolean parking, boolean hospital, boolean busStop, boolean museum) {
+			boolean parking, boolean hospital, boolean busStop, boolean museum) {
 		super();
 		this.coordinate = coordinate;
 		this.highway = highway;
@@ -52,7 +52,7 @@ public class Intersection {
 	 * @param streets     Streets coming out of the intersection.
 	 */
 	public Intersection(Coordinate coordinate, String highway, long osmid, String ref, double betweenness,
-                        HashMap<Integer, Street> streets, boolean parking, boolean hospital, boolean busStop, boolean museum) {
+			HashMap<Integer, Street> streets, boolean parking, boolean hospital, boolean busStop, boolean museum) {
 		super();
 		this.coordinate = coordinate;
 		this.highway = highway;
@@ -67,7 +67,7 @@ public class Intersection {
 	}
 
 	public Intersection(Coordinate coordinate, String highway, long osmid, String ref, boolean parking,
-                        boolean hospital, boolean busStop, boolean museum) {
+			boolean hospital, boolean busStop, boolean museum) {
 		super();
 		this.coordinate = coordinate;
 		this.highway = highway;

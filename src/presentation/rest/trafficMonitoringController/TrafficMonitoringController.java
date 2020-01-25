@@ -1,9 +1,10 @@
-package presentation.rest;
+package presentation.rest.trafficMonitoringController;
 
 import application.trafficMonitoringService.TrafficMonitoringServiceLocal;
 import data.dataModel.Coordinate;
 import data.dataModel.Intersection;
 import data.dataModel.Street;
+import presentation.rest.ResponseBuilder;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -21,10 +22,9 @@ public class TrafficMonitoringController implements TrafficMonitoringControllerA
 
 	@Override
 	public Response shortestPath(long source, long destination, String type, boolean ignoreInterrupted) {
-
 		if(source != 0 && destination != 0) {
 			if (type.equals("Coordinate")) {
-				ArrayList<Coordinate> coords = null;
+				ArrayList<Coordinate> coords;
 				if(ignoreInterrupted)
 					coords = trafficMonitoringService.shortestPathCoordinateIgnoreInterrupted(source, destination);
 				else
@@ -32,38 +32,20 @@ public class TrafficMonitoringController implements TrafficMonitoringControllerA
 				return ResponseBuilder.createOkResponse(coords);
 			}
 			else if (type.equals("Intersection")) {
-				ArrayList<Long> osmids = null;
+				ArrayList<Intersection> intersections;
 				if(ignoreInterrupted)
-					osmids = trafficMonitoringService.shortestPathIgnoreInterrupted(source, destination);
+					intersections = trafficMonitoringService.shortestPathIgnoreInterrupted(source, destination);
 				else
-					osmids = trafficMonitoringService.shortestPath(source, destination);
-				ArrayList<Intersection> inters = new ArrayList<>();
-				for(Long l : osmids) {
-					inters.add(trafficMonitoringService.getIntersection(l));
-				}
-				return ResponseBuilder.createOkResponse(inters);
+					intersections = trafficMonitoringService.shortestPath(source, destination);
+
+				return ResponseBuilder.createOkResponse(intersections);
 			}
 		}
-		//ArrayList<Long> nodes = trafficMonitoringService.shortestPath(source, destination);
-
-
-//		//ArrayList<Intersection> resp = new ArrayList<>();
-//		ArrayList<Coordinate> resp = new ArrayList<>();
-//
-////		for(Long osmid :nodes) {
-////			resp.add(trafficMonitoringService.getIntersection(osmid));
-////		}
-//
-//		for(Coordinate c: coords) {
-//			resp.add(c);
-//		}
-//
 		return Response.serverError().build();
 	}
 
 	@Override
 	public Response criticalNodes(UriInfo info) {
-
 		String top = info.getQueryParameters().getFirst("top");
 		String threshold = info.getQueryParameters().getFirst("threshold");
 		if (top != null && Integer.parseInt(top)>0) {
@@ -98,7 +80,6 @@ public class TrafficMonitoringController implements TrafficMonitoringControllerA
 	public Response getNearestIntersection(float latitude, float longitude) {
 		Intersection i = trafficMonitoringService.getNearestIntersection(new Coordinate(longitude, latitude));
 		return ResponseBuilder.createOkResponse(i);
-
 	}
 
 	@Override
@@ -126,7 +107,7 @@ public class TrafficMonitoringController implements TrafficMonitoringControllerA
 			if (ejb){
 				test = "EJB not injected";
 				if (trafficMonitoringService != null) {
-					test = trafficMonitoringService.test();
+					test = "EJB injected";
 				}
 			} else {
 				test = "Test-string";
@@ -137,5 +118,4 @@ public class TrafficMonitoringController implements TrafficMonitoringControllerA
 			return Response.serverError().build();
 		}
 	}
-
 }

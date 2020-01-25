@@ -50,11 +50,12 @@ public class Street {
 	 * @param weight            Weight value of links for graph elaborations.
 	 * @param flow              Flow value used for graph elaborations.
 	 * @param averageTravelTime Average travel time of street.
+	 * @param interrupted 		Describe if the the street is interrupted.
 	 */
 	public Street(ArrayList<Coordinate> coordinates, int id, String access, String area, String bridge, long osmidStart,
-                  long osmidDest, String highway, String junction, int key, ArrayList<Integer> arrayLanes, double lenght,
-                  String maxSpeed, String name, boolean oneWay, ArrayList<Long> osmidEdges, String ref, boolean transportService,
-                  String tunnel, String width, long origId, double weight, double flow, double averageTravelTime, boolean interrupted) {
+			long osmidDest, String highway, String junction, int key, ArrayList<Integer> arrayLanes, double lenght,
+			String maxSpeed, String name, boolean oneWay, ArrayList<Long> osmidEdges, String ref, boolean transportService,
+			String tunnel, String width, long origId, double weight, double flow, double averageTravelTime, boolean interrupted) {
 		super();
 		this.coordinates = coordinates;
 		this.id = id;
@@ -112,11 +113,12 @@ public class Street {
 	 * @param origId            Id used to elaborations.
 	 * @param flow              Flow value used for graph elaborations.
 	 * @param averageTravelTime Average travel time of street.
+	 * @param interrupted 		Describe if the the street is interrupted.
 	 */
 	public Street(ArrayList<Coordinate> coordinates, int id, String access, String area, String bridge, long osmidStart,
-                  long osmidDest, String highway, String junction, int key, ArrayList<Integer> arrayLanes, double lenght,
-                  String maxSpeed, String name, boolean oneWay, ArrayList<Long> osmidEdges, String ref, boolean transportService,
-                  String tunnel, String width, long origId, double flow, double averageTravelTime, boolean interrupted) {
+			long osmidDest, String highway, String junction, int key, ArrayList<Integer> arrayLanes, double lenght,
+			String maxSpeed, String name, boolean oneWay, ArrayList<Long> osmidEdges, String ref, boolean transportService,
+			String tunnel, String width, long origId, double flow, double averageTravelTime,boolean interrupted) {
 		super();
 		this.coordinates = coordinates;
 		this.id = id;

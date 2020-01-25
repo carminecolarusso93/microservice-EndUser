@@ -8,16 +8,15 @@ import javax.ws.rs.core.Application;
 
 @ApplicationPath("/rest")
 public class RestApplication extends Application {
-	
 	public Set<Class<?>> getClasses() {
 		Set<Class<?>> s = new HashSet<Class<?>>();
-		s.add(presentation.rest.TrafficMonitoringController.class);
+		s.add(presentation.rest.trafficMonitoringController.TrafficMonitoringController.class);
 		return s;
 	}
 
 	public Set<Object> getSingletons() {
 		Set<Object> s = new HashSet<Object>();
-		s.add(new presentation.rest.TrafficMonitoringController());
+		s.add(new presentation.rest.trafficMonitoringController.TrafficMonitoringController());
 		return s;
 	}
 
