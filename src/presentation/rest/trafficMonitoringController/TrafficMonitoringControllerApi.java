@@ -18,7 +18,7 @@ public interface TrafficMonitoringControllerApi {
 	@Path("/shortestPaths")
 	Response shortestPath(@QueryParam("source") long source, @QueryParam("destination") long destination,
 						  @DefaultValue("Coordinate") @QueryParam("type") String type,
-						  @DefaultValue("true") @QueryParam("ignoreInterrupted") boolean ignoreInterrupted);
+						  @DefaultValue("false") @QueryParam("ignoreInterrupted") boolean ignoreInterrupted);
 
 	// recupero degli Y nodi più critici
 	// GET /networkX/criticalNodes?top=Y
