@@ -49,4 +49,8 @@ public interface TrafficMonitoringControllerApi {
 	@Path("/streets")
 	Response getStreetProperties(@Context UriInfo info);
 
+	@POST
+	@Path("/shortestPaths")
+	Response shortestPaths(ShortestPathPreferences shortestPathPreferences);
+
 }

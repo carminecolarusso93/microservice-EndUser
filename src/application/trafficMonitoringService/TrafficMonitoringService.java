@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 
 import data.dataModel.*;
 import data.databaseDriver.*;
+import org.jboss.logging.Logger;
 import util.ServerUtilities;
 
 /**
@@ -20,10 +21,11 @@ import util.ServerUtilities;
 @Stateless
 public class TrafficMonitoringService implements TrafficMonitoringServiceLocal, TrafficMonitoringServiceRemote{
 
-	DriverDatabase database;
+	DAOUser database;
 	protected String databeseURI = null;
 	protected String databaseUser = null;
 	protected String databasePass = null;
+	Logger logger;
 
 	/**
 	 * Default constructor.
@@ -32,12 +34,14 @@ public class TrafficMonitoringService implements TrafficMonitoringServiceLocal, 
 	 * @throws FileNotFoundException 
 	 */
 	public TrafficMonitoringService() {
+		logger = Logger.getLogger(TrafficMonitoringService.class);
+		logger.info("TrafficMonitoringService.TrafficMonitoringService");
 		try {
 			ServerUtilities serverUtilities = new ServerUtilities();
 			this.databeseURI = serverUtilities.getDatabaseReplicaUri();
 			this.databaseUser = serverUtilities.getDatabaseReplicaUser();
 			this.databasePass = serverUtilities.getDatabaseReplicaPass();
-			database = new DriverDatabaseNeo4j(databeseURI, databaseUser, databasePass);
+			database = new DAOUserNeo4jImpl(databeseURI, databaseUser, databasePass);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -49,6 +53,7 @@ public class TrafficMonitoringService implements TrafficMonitoringServiceLocal, 
 	 */
 	@PostConstruct
 	public void connect() {
+		logger.info("TrafficMonitoringService.connect");
 		database.openConnection();
 	}
 	
@@ -58,61 +63,73 @@ public class TrafficMonitoringService implements TrafficMonitoringServiceLocal, 
 	 */
 	@PreDestroy
 	public void preDestroy() {
+		logger.info("TrafficMonitoringService.preDestroy");
 		database.closeConnection();
 	}
 
 	@Override
 	public ArrayList<Intersection> getTopCriticalNodes(int top) {
+		logger.info("TrafficMonitoringService.getTopCriticalNodes: top = " + top);
 		return database.getTopCriticalNodes(top);
 	}
 
 	@Override
 	public ArrayList<Intersection> getThresholdCriticalNodes(double threshold) {
+		logger.info("TrafficMonitoringService.getThresholdCriticalNodes: threshold = " + threshold);
 		return database.getThresholdCriticalNodes(threshold);
 	}
 
 	@Override
 	public double nodeFlow(long osmid) {
+		logger.info("TrafficMonitoringService.nodeFlow: osmid = " + osmid);
 		return database.nodeFlow(osmid);
 	}
 	
 	@Override
 	public Intersection getIntersection(long osmid) {
+		logger.info("TrafficMonitoringService.getIntersection: osmid = " + osmid);
 		return database.getIntersectionLight(osmid);
 	}
 
 	@Override
 	public Street getStreet(int id) {
+		logger.info("TrafficMonitoringService.getStreet: id = " + id);
 		return database.getStreet(id);
 	}
 	
 	@Override
 	public int getLinkKey(long osmidStart, long osmidDest) {
+		logger.info("TrafficMonitoringService.getLinkKey: osmidStart = " + osmidStart + ", osmidDest = " + osmidDest);
 		return database.getLinkKey(osmidStart, osmidDest);
 	}
 
 	@Override
 	public ArrayList<Intersection> shortestPath(long osmidStart, long osmidDest) {
+		logger.info("TrafficMonitoringService.shortestPath: osmidStart = " + osmidStart + ", osmidDest = " + osmidDest);
 		return database.shortestPath(osmidStart, osmidDest);
 	}
 
 	@Override
 	public ArrayList<Coordinate> shortestPathCoordinate(long osmidStart, long osmidDest) {
+		logger.info("TrafficMonitoringService.shortestPathCoordinate: osmidStart = " + osmidStart + ", osmidDest = " + osmidDest);
 		return database.shortestPathCoordinate(osmidStart, osmidDest);
 	}
 
 	@Override
 	public Intersection getNearestIntersection(Coordinate position){
+		logger.info("TrafficMonitoringService.getNearestIntersection: position = " + position);
 		return database.getNearestIntersection(position);
 	}
 
 	@Override
 	public ArrayList<Coordinate> shortestPathCoordinateIgnoreInterrupted(long osmidStart, long osmidDest) {
+		logger.info("TrafficMonitoringService.shortestPathCoordinateIgnoreInterrupted: osmidStart = " + osmidStart + ", osmidDest = " + osmidDest);
 		return database.shortestPathCoordinateIgnoreInterrupted(osmidStart,osmidDest);
 	}
 
 	@Override
 	public ArrayList<Intersection> shortestPathIgnoreInterrupted(long osmidStart, long osmidDest) {
+		logger.info("TrafficMonitoringService.shortestPathIgnoreInterrupted: osmidStart = " + osmidStart + ", osmidDest = " + osmidDest);
 		return database.shortestPathIgnoreInterrupted(osmidStart, osmidDest);
 	}
 
