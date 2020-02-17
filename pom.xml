@@ -2,7 +2,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>microservice-user</groupId>
+
+	<groupId>com.carminecolarusso93</groupId>
 	<artifactId>microservice-user</artifactId>
 	<version>1.0</version>
 	<packaging>war</packaging>
@@ -53,7 +54,18 @@
 			<artifactId>jboss-logging</artifactId>
 			<version>3.4.1.Final</version>
 		</dependency>
-
+		<dependency>
+			<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients -->
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka-clients</artifactId>
+			<version>2.4.0</version>
+		</dependency>
 	</dependencies>
 
 </project>

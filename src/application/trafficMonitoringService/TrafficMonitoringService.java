@@ -133,4 +133,6 @@ public class TrafficMonitoringService implements TrafficMonitoringServiceLocal, 
 		return database.shortestPathIgnoreInterrupted(osmidStart, osmidDest);
 	}
 
+
+
 }

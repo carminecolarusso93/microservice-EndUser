@@ -226,6 +226,11 @@ public interface DAOUser {
 	 */
 	ArrayList<Coordinate> shortestPathCoordinateIgnoreInterrupted(long osmidStart, long osmidDest);
 
-
+	/**
+	 * Querys the database in order to know the timestamp of last update.
+	 *
+	 * @return Timestamp of last update.
+	 */
+	LocalDateTime getLastModified();
 
 }

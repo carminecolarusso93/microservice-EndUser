@@ -7,6 +7,7 @@ import org.jboss.logging.Logger;
 import org.neo4j.driver.*;
 import org.neo4j.driver.exceptions.NoSuchRecordException;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -624,5 +625,14 @@ public class DAOUserNeo4jImpl implements DAOUser {
 
         Record r = result.single();
         return r.get("cost").asDouble();
+    }
+
+    @Override
+    public LocalDateTime getLastModified() {
+        logger.info("DAOAdminNeo4jImpl.getLastModified");
+        Result result = databaseRead("MATCH (a:Control) Return a.timestamp");
+        Record r = result.single();
+        LocalDateTime ldt = r.get("a.timestamp").asLocalDateTime();
+        return ldt;
     }
 }
