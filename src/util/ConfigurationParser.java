@@ -12,8 +12,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class ConfigurationParser {
-
-    /**
+	
+	/**
      * funzione chamata da chi ha bisogno di leggere il file e che restituir� l'elemento passato come parametro
      * @param fileName il nome del file da leggere
      * @param tagName il tag in cui � tenuto l'elemento
@@ -21,8 +21,6 @@ public class ConfigurationParser {
      * @return il primo elemento con il nome specificato che c'� nel file
      */
     public static String readElementFromFileXml(File fileName , String tagName, String elementName)  {
-//        System.out.println("ConfigurationParser.readElementFromFileXml");
-//        System.out.println("fileName = " + fileName + ", tagName = " + tagName + ", elementName = " + elementName);
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder;
         try {
@@ -46,12 +44,9 @@ public class ConfigurationParser {
      */
     //restituisce il primo elemento che si trova nel file xml con le caratteristiche passate in param
     private static String getElement(Document doc, String tagName, String elementName) {
-//        System.out.println("ConfigurationParser.getElement");
-//        System.out.println("doc = " + doc + ", tagName = " + tagName + ", elementName = " + elementName);
-        Node settingNode = doc.getElementsByTagName(tagName).item(0);
+     Node settingNode = doc.getElementsByTagName(tagName).item(0);
 
         Element settingElement = (Element) settingNode;
-//        System.out.println("settingElement = " + settingElement);
         return settingElement.getElementsByTagName(elementName).item(0).getTextContent();
     }
 

@@ -1,5 +1,7 @@
 package presentation.rest;
 
+import presentation.rest.trafficMonitoringController.TrafficMonitoringController;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,13 +12,13 @@ import javax.ws.rs.core.Application;
 public class RestApplication extends Application {
 	public Set<Class<?>> getClasses() {
 		Set<Class<?>> s = new HashSet<Class<?>>();
-		s.add(presentation.rest.trafficMonitoringController.TrafficMonitoringController.class);
+		s.add(TrafficMonitoringController.class);
 		return s;
 	}
 
 	public Set<Object> getSingletons() {
 		Set<Object> s = new HashSet<Object>();
-		s.add(new presentation.rest.trafficMonitoringController.TrafficMonitoringController());
+		s.add(new TrafficMonitoringController());
 		return s;
 	}
 

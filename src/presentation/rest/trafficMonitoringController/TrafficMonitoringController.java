@@ -141,7 +141,7 @@ public class TrafficMonitoringController implements TrafficMonitoringControllerA
             if (ejb) {
                 test = "EJB not injected";
                 if (trafficMonitoringService != null) {
-                    test = "EJB injected";
+                    test = "EJB injected: " + trafficMonitoringService;
                 }
             } else {
                 test = "Test-string";

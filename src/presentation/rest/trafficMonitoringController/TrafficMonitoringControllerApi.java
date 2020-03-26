@@ -38,8 +38,8 @@ public interface TrafficMonitoringControllerApi {
 	Response test(@QueryParam("ejb") boolean ejb);
 
 	@GET
-	@Path("/intersections")
-	Response getIntersection(@QueryParam("osmid") long osmid);
+	@Path("/intersections/{osmid}")
+	Response getIntersection(@PathParam("osmid") long osmid);
 
 	@GET
 	@Path("/intersections/nearest")
