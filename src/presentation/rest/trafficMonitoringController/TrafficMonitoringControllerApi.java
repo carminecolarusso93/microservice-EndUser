@@ -20,7 +20,7 @@ public interface TrafficMonitoringControllerApi {
 						  @DefaultValue("Coordinate") @QueryParam("type") String type,
 						  @DefaultValue("false") @QueryParam("ignoreInterrupted") boolean ignoreInterrupted);
 
-	// recupero degli Y nodi più critici
+	// recupero degli Y nodi piu critici
 	// GET /networkX/criticalNodes?top=Y
 	// GET /networkX/criticalNodes?threshold=Z
 	@GET
