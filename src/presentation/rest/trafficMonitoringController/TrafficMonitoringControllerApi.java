@@ -39,7 +39,7 @@ public interface TrafficMonitoringControllerApi {
 
 	@GET
 	@Path("/intersections/{osmid}")
-	Response getIntersection(@PathParam("osmid") long osmid);
+	Response getIntersection(@PathParam("osmid") long osmid, @DefaultValue("false") @QueryParam("streets") boolean streets);
 
 	@GET
 	@Path("/intersections/nearest")

@@ -68,7 +68,7 @@ public class TrafficMonitoringController implements TrafficMonitoringControllerA
     @Override
     public Response nodesFlow(long osmid) {
         logger.info("TrafficMonitoringController.nodesFlow: osmid = " + osmid);
-        Intersection resp = trafficMonitoringService.getIntersection(osmid);
+        Intersection resp = trafficMonitoringService.getIntersection(osmid, false);
         if (resp == null) {
             return ResponseBuilder.createNotFoundResponse();
         }
@@ -76,9 +76,9 @@ public class TrafficMonitoringController implements TrafficMonitoringControllerA
     }
 
     @Override
-    public Response getIntersection(long osmid) {
+    public Response getIntersection(long osmid, boolean streets) {
         logger.info("TrafficMonitoringController.getIntersection: osmid = " + osmid);
-        Intersection i = trafficMonitoringService.getIntersection(osmid);
+        Intersection i = trafficMonitoringService.getIntersection(osmid, streets);
         return Response.ok().entity(i).build();
     }
 

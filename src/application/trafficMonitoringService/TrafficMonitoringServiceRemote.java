@@ -82,9 +82,10 @@ public interface TrafficMonitoringServiceRemote {
 	 * Returns the Intersection with given Id.
 	 *
 	 * @param osmid Id of the Intersection to find.
+	 * @param streets if set to true method returns also the street coming out from intersection
 	 * @return The Java representation of the searched Intersection.
 	 */
-	Intersection getIntersection(long osmid);
+	Intersection getIntersection(long osmid, boolean streets);
 
 	/**
 	 * Returns the Street with given Id.

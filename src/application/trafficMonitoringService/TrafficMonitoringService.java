@@ -10,7 +10,6 @@ import javax.ejb.Stateless;
 import data.dataModel.*;
 import data.databaseDriver.*;
 import org.jboss.logging.Logger;
-import util.ServerUtilities;
 
 /**
  * Session Bean implementation class BigServiceController
@@ -86,9 +85,12 @@ public class TrafficMonitoringService implements TrafficMonitoringServiceLocal, 
 	}
 	
 	@Override
-	public Intersection getIntersection(long osmid) {
-		logger.info("TrafficMonitoringService.getIntersection: osmid = " + osmid);
-		return database.getIntersectionLight(osmid);
+	public Intersection getIntersection(long osmid, boolean streets) {
+		logger.info("TrafficMonitoringService.getIntersection: osmid = " + osmid + ", streets = " + streets);
+		if(streets)
+			return database.getIntersection(osmid);
+		else
+			return database.getIntersectionLight(osmid);
 	}
 
 	@Override

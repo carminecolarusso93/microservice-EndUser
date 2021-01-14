@@ -86,9 +86,10 @@ public class DAOUserNeo4jImpl implements DAOUser {
 
         Record resultRecord = databaseRead(query).single();
         Value v = resultRecord.get("properties(a)");
-
-        return convertIntersection(v);
-
+        Intersection i = convertIntersection(v);
+        assert i != null;
+        i.setStreets(getStreets(i.getOsmid()));
+        return i;
     }
 
     /**
