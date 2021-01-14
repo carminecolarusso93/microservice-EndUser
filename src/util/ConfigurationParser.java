@@ -14,11 +14,11 @@ import java.io.IOException;
 public class ConfigurationParser {
 	
 	/**
-     * funzione chamata da chi ha bisogno di leggere il file e che restituir� l'elemento passato come parametro
+     * funzione chamata da chi ha bisogno di leggere il file e che restituira' l'elemento passato come parametro
      * @param fileName il nome del file da leggere
-     * @param tagName il tag in cui � tenuto l'elemento
+     * @param tagName il tag in cui e' tenuto l'elemento
      * @param elementName il nome dell'elemento che si vuole
-     * @return il primo elemento con il nome specificato che c'� nel file
+     * @return il primo elemento con il nome specificato che c'e nel file
      */
     public static String readElementFromFileXml(File fileName , String tagName, String elementName)  {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
